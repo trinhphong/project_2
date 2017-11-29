@@ -1,0 +1,2 @@
+class ChinesePost < ApplicationRecord
+end

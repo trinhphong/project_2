@@ -1,0 +1,25 @@
+%h1 Listing chinese_posts
+
+%table
+  %thead
+    %tr
+      %th String
+      %th Text
+      %th String
+      %th
+      %th
+      %th
+
+  %tbody
+    - @chinese_posts.each do |chinese_post|
+      %tr
+        %td= chinese_post.string
+        %td= chinese_post.text
+        %td= chinese_post.string
+        %td= link_to 'Show', chinese_post
+        %td= link_to 'Edit', edit_chinese_post_path(chinese_post)
+        %td= link_to 'Destroy', chinese_post, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Chinese post', new_chinese_post_path
