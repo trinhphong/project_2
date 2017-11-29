@@ -1,0 +1,19 @@
+= form_for @chinese_post do |f|
+  - if @chinese_post.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@chinese_post.errors.count, "error")} prohibited this chinese_post from being saved:"
+      %ul
+        - @chinese_post.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :content
+    = f.text_area :content
+  .field
+    = f.label :source
+    = f.text_field :source
+  .actions
+    = f.submit 'Save'

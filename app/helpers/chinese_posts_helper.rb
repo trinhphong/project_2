@@ -1,0 +1,2 @@
+module ChinesePostsHelper
+end

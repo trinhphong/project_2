@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @chinese_post.title
+%p
+  %b Content:
+  = @chinese_post.content
+%p
+  %b Source:
+  = @chinese_post.source
+
+= link_to 'Edit', edit_chinese_post_path(@chinese_post)
+\|
+= link_to 'Back', chinese_posts_path
