@@ -1,14 +1,14 @@
 %p#notice= notice
 
 %p
-  %b String:
-  = @chinese_post.string
+  %b Title:
+  = @chinese_post.title
 %p
-  %b Text:
-  = @chinese_post.text
+  %b Content:
+  = @chinese_post.content
 %p
-  %b String:
-  = @chinese_post.string
+  %b Source:
+  = @chinese_post.source
 
 = link_to 'Edit', edit_chinese_post_path(@chinese_post)
 \|

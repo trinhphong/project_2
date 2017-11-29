@@ -17,7 +17,7 @@ class ChinesePhrasesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create chinese_phrase" do
     assert_difference('ChinesePhrase.count') do
-      post chinese_phrases_url, params: { chinese_phrase: { text: @chinese_phrase.text } }
+      post chinese_phrases_url, params: { chinese_phrase: { content: @chinese_phrase.content } }
     end
 
     assert_redirected_to chinese_phrase_url(ChinesePhrase.last)
@@ -34,7 +34,7 @@ class ChinesePhrasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update chinese_phrase" do
-    patch chinese_phrase_url(@chinese_phrase), params: { chinese_phrase: { text: @chinese_phrase.text } }
+    patch chinese_phrase_url(@chinese_phrase), params: { chinese_phrase: { content: @chinese_phrase.content } }
     assert_redirected_to chinese_phrase_url(@chinese_phrase)
   end
 

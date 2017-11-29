@@ -4,6 +4,7 @@ class ChinesePhrasesController < ApplicationController
   # GET /chinese_phrases
   # GET /chinese_phrases.json
   def index
+    byebug
     @chinese_phrases = ChinesePhrase.all
   end
 
@@ -69,6 +70,6 @@ class ChinesePhrasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chinese_phrase_params
-      params.require(:chinese_phrase).permit(:text)
+      params.require(:chinese_phrase).permit(:content)
     end
 end

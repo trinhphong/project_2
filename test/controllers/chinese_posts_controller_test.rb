@@ -17,7 +17,7 @@ class ChinesePostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create chinese_post" do
     assert_difference('ChinesePost.count') do
-      post chinese_posts_url, params: { chinese_post: { string: @chinese_post.string, string: @chinese_post.string, text: @chinese_post.text } }
+      post chinese_posts_url, params: { chinese_post: { content: @chinese_post.content, source: @chinese_post.source, title: @chinese_post.title } }
     end
 
     assert_redirected_to chinese_post_url(ChinesePost.last)
@@ -34,7 +34,7 @@ class ChinesePostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update chinese_post" do
-    patch chinese_post_url(@chinese_post), params: { chinese_post: { string: @chinese_post.string, string: @chinese_post.string, text: @chinese_post.text } }
+    patch chinese_post_url(@chinese_post), params: { chinese_post: { content: @chinese_post.content, source: @chinese_post.source, title: @chinese_post.title } }
     assert_redirected_to chinese_post_url(@chinese_post)
   end
 

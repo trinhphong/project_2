@@ -1,4 +1,5 @@
 class ChinesePostsController < ApplicationController
+  before_action :authenticate_admin!, only: [:new, :create, :show, :edit, :update, :destroy]
   before_action :set_chinese_post, only: [:show, :edit, :update, :destroy]
 
   # GET /chinese_posts
@@ -69,6 +70,6 @@ class ChinesePostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chinese_post_params
-      params.require(:chinese_post).permit(:string, :text, :string)
+      params.require(:chinese_post).permit(:title, :content, :source)
     end
 end
