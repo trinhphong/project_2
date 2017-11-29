@@ -1,0 +1,21 @@
+%h1 Listing chinese_phrases
+
+%table
+  %thead
+    %tr
+      %th Text
+      %th
+      %th
+      %th
+
+  %tbody
+    - @chinese_phrases.each do |chinese_phrase|
+      %tr
+        %td= chinese_phrase.text
+        %td= link_to 'Show', chinese_phrase
+        %td= link_to 'Edit', edit_chinese_phrase_path(chinese_phrase)
+        %td= link_to 'Destroy', chinese_phrase, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Chinese phrase', new_chinese_phrase_path

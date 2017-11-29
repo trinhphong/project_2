@@ -1,0 +1,2 @@
+class ChinesePhrase < ApplicationRecord
+end

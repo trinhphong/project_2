@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Text:
+  = @chinese_phrase.text
+
+= link_to 'Edit', edit_chinese_phrase_path(@chinese_phrase)
+\|
+= link_to 'Back', chinese_phrases_path
