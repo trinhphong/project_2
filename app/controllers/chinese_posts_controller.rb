@@ -25,15 +25,28 @@ class ChinesePostsController < ApplicationController
   # POST /chinese_posts.json
   def create
     @chinese_post = ChinesePost.new(chinese_post_params)
-
+    
     respond_to do |format|
       if @chinese_post.save
         format.html { redirect_to @chinese_post, notice: 'Chinese post was successfully created.' }
         format.json { render :show, status: :created, location: @chinese_post }
+        split_phrase(@chinese_post.content)
+        create_phrases @phrases
       else
         format.html { render :new }
         format.json { render json: @chinese_post.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def split_phrases post
+    @phrases = post.split("。")
+  end
+
+  def create_phrases phrases
+    @phrases.each do |phrase|
+      ph = ChinesePhrase.new(content: phrase, chinese_post_id: @chinese_post.id)
+      ph.save
     end
   end
 
