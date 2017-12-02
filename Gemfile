@@ -39,6 +39,7 @@ gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'haml', '~> 5.0.2'
 gem 'haml-rails', '~> 1.0.0'
 gem 'jquery-rails', '~> 4.3.1'
+gem 'yandex-translator'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
