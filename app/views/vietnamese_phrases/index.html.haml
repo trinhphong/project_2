@@ -1,0 +1,19 @@
+%h1 Listing vietnamese_phrases
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @vietnamese_phrases.each do |vietnamese_phrase|
+      %tr
+        %td= link_to 'Show', vietnamese_phrase
+        %td= link_to 'Edit', edit_vietnamese_phrase_path(vietnamese_phrase)
+        %td= link_to 'Destroy', vietnamese_phrase, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Vietnamese phrase', new_vietnamese_phrase_path

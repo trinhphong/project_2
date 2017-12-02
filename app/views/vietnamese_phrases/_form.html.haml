@@ -1,0 +1,10 @@
+= form_for @vietnamese_phrase do |f|
+  - if @vietnamese_phrase.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@vietnamese_phrase.errors.count, "error")} prohibited this vietnamese_phrase from being saved:"
+      %ul
+        - @vietnamese_phrase.errors.full_messages.each do |message|
+          %li= message
+
+  .actions
+    = f.submit 'Save'
