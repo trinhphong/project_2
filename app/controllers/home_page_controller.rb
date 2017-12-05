@@ -1,4 +1,5 @@
 class HomePageController < ApplicationController
-    def index
-    end
+  def index
+    @chinese_posts = ChinesePost.all
+  end
 end

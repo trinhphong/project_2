@@ -9,6 +9,8 @@
   </head>
 
   <body style="margin: 0">
+    <% render 'layouts/header' %>
+    <%= yield :navigation %>
     <%= yield %>
   </body>
 </html>

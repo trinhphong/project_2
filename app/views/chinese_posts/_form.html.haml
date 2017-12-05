@@ -1,4 +1,4 @@
-= form_for @chinese_post do |f|
+= form_for @chinese_post, html: { multipart: true } do |f|
   - if @chinese_post.errors.any?
     #error_explanation
       %h2= "#{pluralize(@chinese_post.errors.count, "error")} prohibited this chinese_post from being saved:"
@@ -13,9 +13,29 @@
     = f.label :content
     = f.text_area :content
   .field
+    = f.label :image
+    = f.file_field :image
+    %img{id: "img-field", alt: "post image", style:"height:200px;width:200px;", src:"#"}
+  .field
     = f.label :source
     = f.text_field :source
   .field
     = f.hidden_field :admin_id, value: current_admin.id
   .actions
     = f.submit 'Save'
+
+:javascript
+  function readURL(input) {
+    if (input.files && input.files[0]){
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#img-field").attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#chinese_post_image").change(function() {
+    console.log("Hello");
+    readURL(this);
+  });

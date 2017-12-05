@@ -41,6 +41,7 @@ gem 'haml-rails', '~> 1.0.0'
 gem 'jquery-rails', '~> 4.3.1'
 gem 'yandex-translator'
 gem 'sprockets-rails'
+gem "paperclip", "~> 5.0.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

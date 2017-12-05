@@ -1,15 +1,34 @@
 %p#notice= notice
 
-%p
-  %b Title:
-  = @chinese_post.title
-%p
-  %b Content:
-  = @chinese_post.content
-%p
-  %b Source:
-  = @chinese_post.source
+.container-fluid
+  .row
+    .col-md-12
+      .row
+        .title-post.text-center
+          %h3= @chinese_post.title
+      .row{style: "margin: 0 20px;"}
+        .content-post
+          %table.table-bordered.table-hover{style:"width: 90%"}
+            - @chinese_phrases.each do |phrase|
+              %tr
+                = hidden_field_tag :id_zh, phrase.id
+                %td.zh-phrase{style:"width: 50%"}= phrase.content
+                %td.vn-phrase{style:"width: 50%", "data-zh" => phrase.id}= phrase.vietnamese_phrases.first.content
+              - phrase.vietnamese_phrases.drop(1).each do |vn|
+                %tr.hidden{class: "list-#{phrase.id}"}
+                  %td
+                  %td= vn.content
 
-= link_to 'Edit', edit_chinese_post_path(@chinese_post)
-\|
-= link_to 'Back', chinese_posts_path
+:javascript
+  $('.vn-phrase').on("click", function(){
+    var s = $(this).data("zh");
+    var str = ".list-" + s;
+    if($(this).hasClass("active")) {
+      $(str).addClass("hidden");
+      $(this).removeClass("active");
+    }
+    else {
+      $(str).removeClass("hidden");
+      $(this).addClass("active");
+    }
+  });

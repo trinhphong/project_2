@@ -11,6 +11,7 @@ class ChinesePostsController < ApplicationController
   # GET /chinese_posts/1
   # GET /chinese_posts/1.json
   def show
+    @chinese_phrases = @chinese_post.chinese_phrases
   end
 
   # GET /chinese_posts/new
@@ -90,6 +91,6 @@ class ChinesePostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chinese_post_params
-      params.require(:chinese_post).permit(:title, :content, :source, :admin_id)
+      params.require(:chinese_post).permit(:title, :content, :image, :source, :admin_id)
     end
 end
