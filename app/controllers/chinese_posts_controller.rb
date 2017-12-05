@@ -11,6 +11,7 @@ class ChinesePostsController < ApplicationController
   # GET /chinese_posts/1
   # GET /chinese_posts/1.json
   def show
+    @chinese_phrases = @chinese_post.chinese_phrases
   end
 
   # GET /chinese_posts/new
