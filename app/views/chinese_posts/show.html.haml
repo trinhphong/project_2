@@ -14,7 +14,7 @@
                 = hidden_field_tag :id_zh, phrase.id
                 %td.zh-phrase{style:"width: 50%"}= phrase.content
                 %td.vn-phrase{style:"width: 50%", "data-zh" => phrase.id}= phrase.vietnamese_phrases.first.content
-              - phrase.vietnamese_phrases.drop(1).each do |vn|
+              - phrase.vietnamese_phrases.each do |vn|
                 %tr.hidden{class: "list-#{phrase.id}"}
                   %td
                   %td= vn.content
