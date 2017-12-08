@@ -10,3 +10,12 @@ puts "Create Admin"
 Admin.create(email: "admin1@gmail.com",password: "123456")
 Admin.create(email: "admin2@gmail.com",password: "123456")
 puts "Create Admin success!!!"
+
+puts "Create User"
+User.create(email: "user1@gmail.com",password: "123456")
+User.create(email: "user2@gmail.com",password: "123456")
+User.create(email: "user3@gmail.com",password: "123456")
+User.create(email: "user4@gmail.com",password: "123456")
+User.create(email: "user5@gmail.com",password: "123456")
+User.create(email: "user6@gmail.com",password: "123456")
+puts "Create User success!!"

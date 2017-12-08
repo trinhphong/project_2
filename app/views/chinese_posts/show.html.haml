@@ -8,16 +8,28 @@
           %h3= @chinese_post.title
       .row{style: "margin: 0 20px;"}
         .content-post
-          %table.table-bordered.table-hover{style:"width: 90%"}
+          %table.table-bordered.table-hover{style:"width: 100%"}
             - @chinese_phrases.each do |phrase|
               %tr
                 = hidden_field_tag :id_zh, phrase.id
-                %td.zh-phrase{style:"width: 50%"}= phrase.content
-                %td.vn-phrase{style:"width: 50%", "data-zh" => phrase.id}= phrase.vietnamese_phrases.first.content
+                - @first = phrase.vietnamese_phrases.first
+                %td.zh-phrase{style:"width: 40%"}= phrase.content
+                %td.vn-phrase{style:"width: 50%", "data-zh" => phrase.id}= @first.content
+                %td.score-cell{style: "width: 5%", class: "score-#{@first.id}"}= @first.score
+                %td.update-cell{style: "width: 5%"}
               - phrase.vietnamese_phrases.each do |vn|
+                
                 %tr.hidden{class: "list-#{phrase.id}"}
                   %td
                   %td= vn.content
+                  %td.score-cell{class: "score-#{vn.id}"}= vn.score
+                  %td.update-cell
+                    - unless ChinesePostsHelper.check_rated?(current_user.id, vn.id)
+                      = select_tag :score, options_for_select([1,2,3,4,5]),
+                            class: "star",
+                            prompt: '',
+                            "data-id" => phrase.id, 
+                            "data-url" => calculate_score_vietnamese_phrase_path(vn.id)
 
 :javascript
   $('.vn-phrase').on("click", function(){
@@ -31,4 +43,27 @@
       $(str).removeClass("hidden");
       $(this).addClass("active");
     }
+  });
+
+  $(document).ready(function() {
+    $('.star').next('option').hide();
+  });
+
+  $('.star').on('change', function(){
+    var id = $(this).data('id');
+    var url = $(this).data('url');
+    var score = $(this).val();
+
+    $.ajax({
+      url: url,
+      method: "POST",
+      dataType: 'json',
+      data: {vn_id: id, score: score},
+      success: function(result) {
+        var score_class = ".score-" + result.vn_id;
+        $(score_class).text(result.avg);
+        var hidden_class = "[data-id='" +  result.vn_id + "']";
+        $(hidden_class).addClass("hidden");
+      }
+    });
   });

@@ -61,6 +61,26 @@ class VietnamesePhrasesController < ApplicationController
     end
   end
 
+  def calculate_score
+    current_user.rates.create(vietnamese_phrase_id: params[:vn_id], score: params[:score], rated: true)
+
+    vietnamese_phrase = VietnamesePhrase.find(params[:vn_id])
+    total = 0;
+    vietnamese_phrase.rates.each do |rate|
+      total = total + rate.score
+    end
+
+    avg = total / vietnamese_phrase.rates.count
+
+    avg_rounded = (avg * 2).round / 2.0
+
+    vietnamese_phrase.update(score: avg_rounded)
+
+    respond_to do |format|
+      format.json { render :json => {avg: avg_rounded, vn_id: params[:vn_id]}}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vietnamese_phrase
