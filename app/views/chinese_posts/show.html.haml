@@ -1,5 +1,4 @@
-%p#notice= notice
-
+%h2#notice= notice
 .container-fluid
   .row
     .col-md-12
@@ -13,23 +12,32 @@
               %tr
                 = hidden_field_tag :id_zh, phrase.id
                 - @first = phrase.vietnamese_phrases.first
-                %td.zh-phrase{style:"width: 40%"}= phrase.content
+                %td.zh-phrase{id: "zh_content_#{phrase.id}", style:"width: 40%"}= phrase.content
                 %td.vn-phrase{style:"width: 50%", "data-zh" => phrase.id}= @first.content
                 %td.score-cell{style: "width: 5%", class: "score-#{@first.id}"}= @first.score
                 %td.update-cell{style: "width: 5%"}
-              - phrase.vietnamese_phrases.each do |vn|
-                
+              - phrase.vietnamese_phrases.order(score: :desc).each do |vn|
                 %tr.hidden{class: "list-#{phrase.id}"}
                   %td
-                  %td= vn.content
+                  %td{id: "vn_content_#{vn.id}"}= vn.content
                   %td.score-cell{class: "score-#{vn.id}"}= vn.score
                   %td.update-cell
                     - unless ChinesePostsHelper.check_rated?(current_user.id, vn.id)
                       = select_tag :score, options_for_select([1,2,3,4,5]),
-                            class: "star",
+                            class: "star form-control",
                             prompt: '',
-                            "data-id" => phrase.id, 
+                            "data-id" => vn.id, 
                             "data-url" => calculate_score_vietnamese_phrase_path(vn.id)
+                    - if phrase.vietnamese_phrases.count <= 10
+                      = link_to 'Update', '#', 
+                        class: 'btn btn-success update-btn', 
+                        id: 'create-vietnamese-phrase', 
+                        "data-toggle" => "modal", 
+                        "data-target" => "#vietnamese-phrase-new",
+                        "data-vn" => vn.id,
+                        "data-zh" => phrase.id
+
+= render 'chinese_posts/new_vn', vietnamese_phrase: @vietnamese_phrase
 
 :javascript
   $('.vn-phrase').on("click", function(){
@@ -43,6 +51,17 @@
       $(str).removeClass("hidden");
       $(this).addClass("active");
     }
+  });
+
+  $('.update-btn').on('click', function() {
+    var vn_id = $(this).data("vn");
+    var zh_id = $(this).data("zh");
+    var select_zh = "#zh_content_" + zh_id;
+    var select_vn = "#vn_content_" + vn_id;
+    $('#zh_phrase').val($(select_zh).text());
+    $('#vn_phrase').val($(select_vn).text());
+    $('#vietnamese_phrase_content').val($(select_vn).text());
+    $('#vietnamese_phrase_chinese_phrase_id').val(zh_id);
   });
 
   $(document).ready(function() {

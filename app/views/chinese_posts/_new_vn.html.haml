@@ -1,0 +1,8 @@
+#vietnamese-phrase-new.modal.fade.vietnamese-phrase-new{:role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h4.modal-title Update Vietnamese Phrase
+      .modal-body
+        = render "vietnamese_phrases/form", 
+            vietnamese_phrase: vietnamese_phrase

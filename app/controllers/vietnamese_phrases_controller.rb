@@ -26,14 +26,11 @@ class VietnamesePhrasesController < ApplicationController
   def create
     @vietnamese_phrase = VietnamesePhrase.new(vietnamese_phrase_params)
 
-    respond_to do |format|
-      if @vietnamese_phrase.save
-        format.html { redirect_to @vietnamese_phrase, notice: 'Vietnamese phrase was successfully created.' }
-        format.json { render :show, status: :created, location: @vietnamese_phrase }
-      else
-        format.html { render :new }
-        format.json { render json: @vietnamese_phrase.errors, status: :unprocessable_entity }
-      end
+    @chinese_post = @vietnamese_phrase.chinese_post
+    if @vietnamese_phrase.save
+      redirect_to chinese_post_path(@chinese_post), notice: 'Vietnamese phrase was successfully created.'
+    else
+      redirect_to chinese_post_path(@chinese_post), notice: 'Duplicate content!!!'
     end
   end
 
@@ -89,6 +86,6 @@ class VietnamesePhrasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vietnamese_phrase_params
-      params.fetch(:vietnamese_phrase, {})
+      params.require(:vietnamese_phrase).permit(:content, :chinese_phrase_id)
     end
 end
