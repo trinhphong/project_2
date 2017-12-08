@@ -1,4 +1,5 @@
 class ChinesePostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_chinese_post, only: [:show, :edit, :update, :destroy]
 
   $translator = Yandex::Translator.new('trnsl.1.1.20171201T174723Z.ad1f067b0544dfc6.326ee4f45e33241a8a265b8d3424728de10618d4')
