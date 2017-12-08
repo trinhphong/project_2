@@ -9,15 +9,15 @@
         .content-post
           %table.table-bordered.table-hover{style:"width: 100%"}
             - @chinese_phrases.each do |phrase|
-              %tr
+              %tr.row-phrase{"data-zh" => phrase.id}
                 = hidden_field_tag :id_zh, phrase.id
-                - @first = phrase.vietnamese_phrases.first
+                - @first = phrase.vietnamese_phrases.order(score: :desc).first
                 %td.zh-phrase{id: "zh_content_#{phrase.id}", style:"width: 40%"}= phrase.content
-                %td.vn-phrase{style:"width: 50%", "data-zh" => phrase.id}= @first.content
+                %td.vn-phrase{style:"width: 50%"}= @first.content
                 %td.score-cell{style: "width: 5%", class: "score-#{@first.id}"}= @first.score
                 %td.update-cell{style: "width: 5%"}
               - phrase.vietnamese_phrases.order(score: :desc).each do |vn|
-                %tr.hidden{class: "list-#{phrase.id}"}
+                %tr.hidden{class: "list-#{phrase.id}", style: "background-color: whitesmoke"}
                   %td
                   %td{id: "vn_content_#{vn.id}"}= vn.content
                   %td.score-cell{class: "score-#{vn.id}"}= vn.score
@@ -40,7 +40,7 @@
 = render 'chinese_posts/new_vn', vietnamese_phrase: @vietnamese_phrase
 
 :javascript
-  $('.vn-phrase').on("click", function(){
+  $('.row-phrase').on("click", function(){
     var s = $(this).data("zh");
     var str = ".list-" + s;
     if($(this).hasClass("active")) {

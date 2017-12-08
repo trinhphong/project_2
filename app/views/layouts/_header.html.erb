@@ -18,14 +18,14 @@
 			</div>
 			<div id="navbar3" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active">
-						<a href="#">Home</a>
+					<li>
+						<%= link_to 'Home', root_path %>
 					</li>
 					<li>
-						<a href="#">About</a>
+							<%= link_to 'Login', new_user_session_path if !current_user.present? %>
 					</li>
 					<li>
-						 <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
+						 	<%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
 					</li>
 				</ul>
 			</div>
