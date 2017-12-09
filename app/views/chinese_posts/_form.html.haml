@@ -8,10 +8,10 @@
 
   .field
     = f.label :title
-    = f.text_field :title
+    = f.text_field :title, required: true
   .field
     = f.label :content
-    = f.text_area :content
+    = f.text_area :content, class: "form-control", rows: '4', required: true
   .field
     = f.label :image
     = f.file_field :image
@@ -20,7 +20,7 @@
     = f.label :source
     = f.text_field :source
   .field
-    = f.hidden_field :admin_id, value: current_admin.id
+    = f.hidden_field :admin_id, value: current_user.id
   .actions
     = f.submit 'Save'
 
@@ -36,6 +36,5 @@
   }
 
   $("#chinese_post_image").change(function() {
-    console.log("Hello");
     readURL(this);
   });

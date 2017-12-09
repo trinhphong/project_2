@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   has_many :rates
   has_many :vietnamese_phrases, through: :rates
+
+  has_many :chinese_posts
 end

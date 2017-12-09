@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 puts "Create Admin"
-Admin.create(email: "admin1@gmail.com",password: "123456")
-Admin.create(email: "admin2@gmail.com",password: "123456")
+User.create(email: "admin1@gmail.com",password: "123456", admin: "true")
+User.create(email: "admin2@gmail.com",password: "123456", admin: "true")
 puts "Create Admin success!!!"
 
 puts "Create User"

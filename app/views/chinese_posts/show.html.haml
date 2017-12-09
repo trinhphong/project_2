@@ -1,4 +1,6 @@
-%h2#notice= notice
+- flash.each do |key, value|
+  %h2= content_tag :div, value, class: "flash #{key}"
+
 .container-fluid
   .row
     .col-md-12
@@ -28,6 +30,8 @@
                             prompt: '',
                             "data-id" => vn.id, 
                             "data-url" => calculate_score_vietnamese_phrase_path(vn.id)
+                    - if current_user.admin?
+                      = link_to 'Destroy', vn, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' }
                     - if phrase.vietnamese_phrases.count <= 10
                       = link_to 'Update', '#', 
                         class: 'btn btn-success update-btn', 
