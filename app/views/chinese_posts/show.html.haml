@@ -19,7 +19,7 @@
                 %td.score-cell{style: "width: 5%", class: "score-#{@first.id}"}= @first.score
                 %td.update-cell{style: "width: 5%"}
               - phrase.vietnamese_phrases.sort_by(&:order_priority).reverse.each do |vn|
-                %tr.hidden{class: "list-#{phrase.id}", style: "background-color: whitesmoke"}
+                %tr.hidden{class: "list-#{phrase.id} hello", style: "background-color: whitesmoke"}
                   %td
                   %td{id: "vn_content_#{vn.id}"}= vn.content
                   %td.score-cell
@@ -50,11 +50,16 @@
   $('.row-phrase').on("click", function(){
     var s = $(this).data("zh");
     var str = ".list-" + s;
+
+
+
     if($(this).hasClass("active")) {
       $(str).addClass("hidden");
       $(this).removeClass("active");
     }
     else {
+      $('.hello').addClass('hidden');
+      $('.row-phrase').removeClass('active');
       $(str).removeClass("hidden");
       $(this).addClass("active");
     }
