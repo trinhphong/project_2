@@ -1,5 +1,4 @@
-%p#notice= notice
-
+%h2#notice= notice
 .container-fluid
   .row
     .col-md-12
@@ -8,19 +7,40 @@
           %h3= @chinese_post.title
       .row{style: "margin: 0 20px;"}
         .content-post
-          %table.table-bordered.table-hover{style:"width: 90%"}
+          %table.table-bordered.table-hover{style:"width: 100%"}
             - @chinese_phrases.each do |phrase|
-              %tr
+              %tr.row-phrase{"data-zh" => phrase.id}
                 = hidden_field_tag :id_zh, phrase.id
-                %td.zh-phrase{style:"width: 50%"}= phrase.content
-                %td.vn-phrase{style:"width: 50%", "data-zh" => phrase.id}= phrase.vietnamese_phrases.first.content
-              - phrase.vietnamese_phrases.drop(1).each do |vn|
-                %tr.hidden{class: "list-#{phrase.id}"}
+                - @first = phrase.vietnamese_phrases.order(score: :desc).first
+                %td.zh-phrase{id: "zh_content_#{phrase.id}", style:"width: 40%"}= phrase.content
+                %td.vn-phrase{style:"width: 50%"}= @first.content
+                %td.score-cell{style: "width: 5%", class: "score-#{@first.id}"}= @first.score
+                %td.update-cell{style: "width: 5%"}
+              - phrase.vietnamese_phrases.order(score: :desc).each do |vn|
+                %tr.hidden{class: "list-#{phrase.id}", style: "background-color: whitesmoke"}
                   %td
-                  %td= vn.content
+                  %td{id: "vn_content_#{vn.id}"}= vn.content
+                  %td.score-cell{class: "score-#{vn.id}"}= vn.score
+                  %td.update-cell
+                    - unless ChinesePostsHelper.check_rated?(current_user.id, vn.id)
+                      = select_tag :score, options_for_select([1,2,3,4,5]),
+                            class: "star form-control",
+                            prompt: '',
+                            "data-id" => vn.id, 
+                            "data-url" => calculate_score_vietnamese_phrase_path(vn.id)
+                    - if phrase.vietnamese_phrases.count <= 10
+                      = link_to 'Update', '#', 
+                        class: 'btn btn-success update-btn', 
+                        id: 'create-vietnamese-phrase', 
+                        "data-toggle" => "modal", 
+                        "data-target" => "#vietnamese-phrase-new",
+                        "data-vn" => vn.id,
+                        "data-zh" => phrase.id
+
+= render 'chinese_posts/new_vn', vietnamese_phrase: @vietnamese_phrase
 
 :javascript
-  $('.vn-phrase').on("click", function(){
+  $('.row-phrase').on("click", function(){
     var s = $(this).data("zh");
     var str = ".list-" + s;
     if($(this).hasClass("active")) {
@@ -31,4 +51,38 @@
       $(str).removeClass("hidden");
       $(this).addClass("active");
     }
+  });
+
+  $('.update-btn').on('click', function() {
+    var vn_id = $(this).data("vn");
+    var zh_id = $(this).data("zh");
+    var select_zh = "#zh_content_" + zh_id;
+    var select_vn = "#vn_content_" + vn_id;
+    $('#zh_phrase').val($(select_zh).text());
+    $('#vn_phrase').val($(select_vn).text());
+    $('#vietnamese_phrase_content').val($(select_vn).text());
+    $('#vietnamese_phrase_chinese_phrase_id').val(zh_id);
+  });
+
+  $(document).ready(function() {
+    $('.star').next('option').hide();
+  });
+
+  $('.star').on('change', function(){
+    var id = $(this).data('id');
+    var url = $(this).data('url');
+    var score = $(this).val();
+
+    $.ajax({
+      url: url,
+      method: "POST",
+      dataType: 'json',
+      data: {vn_id: id, score: score},
+      success: function(result) {
+        var score_class = ".score-" + result.vn_id;
+        $(score_class).text(result.avg);
+        var hidden_class = "[data-id='" +  result.vn_id + "']";
+        $(hidden_class).addClass("hidden");
+      }
+    });
   });
