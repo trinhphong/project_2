@@ -1,27 +1,28 @@
-%h1 Listing chinese_posts
+%h1 Listing Chineses Post
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th Content
-      %th Source
-      %th
-      %th
-      %th
-
-  %tbody
-    - @chinese_posts.each do |chinese_post|
+.container
+  %table.table-bordered.table-hover
+    %thead
       %tr
-        %td= chinese_post.title
-        %td= chinese_post.content
-        %td= chinese_post.source
-        %td= link_to 'Show', chinese_post
-        %td= link_to 'Edit', edit_chinese_post_path(chinese_post)
-        %td= link_to 'Destroy', chinese_post, method: :delete, data: { confirm: 'Are you sure?' }
+        %th Title
+        %th Content
+        %th Source
+        %th
+        %th
+        %th
 
-%br
+    %tbody
+      - @chinese_posts.each do |chinese_post|
+        %tr
+          %td= chinese_post.title
+          %td= chinese_post.content
+          %td= chinese_post.source
+          %td= link_to 'Show', chinese_post
+          %td= link_to 'Edit', edit_chinese_post_path(chinese_post)
+          %td= link_to 'Destroy', chinese_post, method: :delete, data: { confirm: 'Are you sure?' }
 
-= link_to 'New Chinese post', new_chinese_post_path
+  %br
 
-= link_to 'Sign out', destroy_user_session_path, :method => :delete
+  = link_to 'New Chinese post', new_chinese_post_path
+
+  = link_to 'Sign out', destroy_user_session_path, :method => :delete
