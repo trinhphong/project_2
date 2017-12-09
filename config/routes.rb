@@ -12,10 +12,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
-
-  devise_for :admins, controllers: {
-    sessions: 'admins/sessions'
-  }
   
   get '/admins/sign_up', to: redirect('/admins/sign_in')
 

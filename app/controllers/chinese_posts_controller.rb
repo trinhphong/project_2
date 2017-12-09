@@ -1,25 +1,27 @@
 class ChinesePostsController < ApplicationController
-  before_action :authenticate_user!, only: [:show]
-  before_action :authenticate_admin!, only: [:index, :create, :destroy, :update, :new]
   before_action :set_chinese_post, only: [:show, :edit, :update, :destroy]
 
   $translator = Yandex::Translator.new('trnsl.1.1.20171201T174723Z.ad1f067b0544dfc6.326ee4f45e33241a8a265b8d3424728de10618d4')
   # GET /chinese_posts
   # GET /chinese_posts.json
+
   def index
     @chinese_posts = ChinesePost.all
+    authorize @chinese_posts
   end
 
   # GET /chinese_posts/1
   # GET /chinese_posts/1.json
   def show
     @chinese_phrases = @chinese_post.chinese_phrases
+    authorize @chinese_post
     @vietnamese_phrase = VietnamesePhrase.new()
   end
 
   # GET /chinese_posts/new
   def new
     @chinese_post = ChinesePost.new
+    authorize @chinese_post
   end
 
   # GET /chinese_posts/1/edit
@@ -96,4 +98,9 @@ class ChinesePostsController < ApplicationController
     def chinese_post_params
       params.require(:chinese_post).permit(:title, :content, :image, :source, :admin_id)
     end
+
+  def user_not_authorized
+    flash[:alert] = "Please Sign in FIRST - just a ez step :)"
+    redirect_to(new_user_session_path)
+  end
 end
