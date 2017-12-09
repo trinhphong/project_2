@@ -7,4 +7,9 @@ class VietnamesePhrase < ApplicationRecord
 
     validates :content, presence: true, uniqueness: true
     validates :chinese_phrase_id, presence: true
+
+
+    def order_priority
+        rates.count * score
+    end
 end

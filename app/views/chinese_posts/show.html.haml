@@ -13,16 +13,19 @@
             - @chinese_phrases.each do |phrase|
               %tr.row-phrase{"data-zh" => phrase.id}
                 = hidden_field_tag :id_zh, phrase.id
-                - @first = phrase.vietnamese_phrases.order(score: :desc).first
+                - @first = phrase.vietnamese_phrases.sort_by(&:order_priority).reverse.first
                 %td.zh-phrase{id: "zh_content_#{phrase.id}", style:"width: 40%"}= phrase.content
                 %td.vn-phrase{style:"width: 50%"}= @first.content
                 %td.score-cell{style: "width: 5%", class: "score-#{@first.id}"}= @first.score
                 %td.update-cell{style: "width: 5%"}
-              - phrase.vietnamese_phrases.order(score: :desc).each do |vn|
+              - phrase.vietnamese_phrases.sort_by(&:order_priority).reverse.each do |vn|
                 %tr.hidden{class: "list-#{phrase.id}", style: "background-color: whitesmoke"}
                   %td
                   %td{id: "vn_content_#{vn.id}"}= vn.content
-                  %td.score-cell{class: "score-#{vn.id}"}= vn.score
+                  %td.score-cell
+                    %span{class: "score-#{vn.id}"}= vn.score
+                    %span /
+                    %span{class: "count-#{vn.id}"}= vn.rates.count
                   %td.update-cell
                     - unless ChinesePostsHelper.check_rated?(current_user.id, vn.id)
                       = select_tag :score, options_for_select([1,2,3,4,5]),
@@ -84,7 +87,9 @@
       data: {vn_id: id, score: score},
       success: function(result) {
         var score_class = ".score-" + result.vn_id;
+        var count_class = ".count-" + result.vn_id;
         $(score_class).text(result.avg);
+        $(count_class).text(parseInt($(count_class).text()) + 1)
         var hidden_class = "[data-id='" +  result.vn_id + "']";
         $(hidden_class).addClass("hidden");
       }
