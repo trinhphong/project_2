@@ -86,6 +86,6 @@ class VietnamesePhrasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vietnamese_phrase_params
-      params.require(:vietnamese_phrase).permit(:content, :chinese_phrase_id)
+      params.require(:vietnamese_phrase).permit(:content, :chinese_phrase_id, :user_id)
     end
 end

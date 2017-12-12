@@ -1,6 +1,8 @@
 %h1.text-center Listing Chineses Post
-= link_to 'New Chinese post', new_chinese_post_path, class: "btn btn-success text-center"
+
 .container
+  .row
+    = link_to 'New Chinese post', new_chinese_post_path, class: "btn btn-success"
   %table.table-bordered.table-hover
     %thead
       %tr

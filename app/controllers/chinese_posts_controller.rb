@@ -60,7 +60,7 @@ class ChinesePostsController < ApplicationController
 
   def translate_zh_to_vi zh_phrase
       vi_phrase_translated = $translator.translate(zh_phrase.content, from: 'zh', to: 'vi')
-      vi_phrase = VietnamesePhrase.new(content: vi_phrase_translated, chinese_phrase_id: zh_phrase.id )
+      vi_phrase = VietnamesePhrase.new(content: vi_phrase_translated, chinese_phrase_id: zh_phrase.id, user: current_user)
       vi_phrase.save
   end
 

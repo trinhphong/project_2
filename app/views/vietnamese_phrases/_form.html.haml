@@ -18,5 +18,8 @@
   .field
     = f.hidden_field :chinese_phrase_id, class: "form-control"
 
+  .field
+    = f.hidden_field :user_id, value: current_user.id, class: "form-control"
+
   .actions
     = f.submit 'Save', class: "btn btn-primary form-control"

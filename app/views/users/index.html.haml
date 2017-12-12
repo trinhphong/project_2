@@ -1,0 +1,13 @@
+%h1.text-center Listing Users
+.container
+  %table.table-bordered.table-hover{style: 'width: 100%'}
+    %thead
+      %tr
+        %th Email
+        %th number of rates 
+
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.email
+          %td= user.rates.count
