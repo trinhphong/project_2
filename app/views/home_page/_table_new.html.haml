@@ -11,3 +11,7 @@
         .row
           .col-md-12.col-centered.post-title{style:"font-size:20px;"}
             = post.title
+        .row
+          .col-md-12
+            %span Number of rates:
+            %span= post.rates.count

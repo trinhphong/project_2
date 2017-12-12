@@ -1,5 +1,6 @@
 - flash.each do |key, value|
-  %h2= content_tag :div, value, class: "flash #{key}"
+  - if value == 'Duplicate content!!!'
+    %h2= content_tag :div, value, class: "flash #{key}"
 
 .container-fluid
   .row
