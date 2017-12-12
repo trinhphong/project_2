@@ -100,7 +100,7 @@ class ChinesePostsController < ApplicationController
     end
 
   def user_not_authorized
-    flash[:alert] = "Please Sign in FIRST - just a ez step :)"
+    flash[:alert] = "Please Sign in FIRST - just an ez step :)"
     redirect_to(new_user_session_path)
   end
 end
