@@ -5,6 +5,6 @@ class ChinesePost < ApplicationRecord
     belongs_to :user, foreign_key: "admin_id"
 
     has_attached_file :image, styles: {large: "500x200" }
-    validates :image, attachment_presence: true
+    validates :image
     do_not_validate_attachment_file_type :image
 end
