@@ -43,8 +43,8 @@ gem 'yandex-translator'
 gem 'sprockets-rails'
 gem "paperclip", "~> 5.0.0"
 gem 'pundit'
-gem 'aws-sdk'
-gem 'aws-sdk-rails'
+gem 'aws-sdk', '2.10.47'
+gem 'aws-sdk-rails', '1.0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
