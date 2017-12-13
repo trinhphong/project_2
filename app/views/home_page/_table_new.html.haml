@@ -1,17 +1,17 @@
 .container-fluid
-- posts.each_slice(4) do |row|
-  .row
-  - row.each do |post|
-    %a{ href: chinese_post_path(post.id) }
-      .col-md-3{class: "click-post",id: "click_post_#{post.id}", style:"margin-bottom: 40px"}
-        .row
-          .col-md-12
-            .image-new
-              = image_tag post.image.url(:large), alt: "image post"
-        .row
-          .col-md-12.col-centered.post-title{style:"font-size:20px;"}
-            = post.title
-        .row
-          .col-md-12
-            %span Number of rates:
-            %span= post.rates.count
+  - posts.each_slice(4) do |row|
+    .row
+    - row.each do |post|
+      %a{ href: chinese_post_path(post.id) }
+        .col-md-3{class: "click-post",id: "click_post_#{post.id}", style:"margin-bottom: 40px"}
+          .row
+            .col-md-12
+              .image-new
+                = image_tag post.image.url(:large), alt: "image post"
+          .row
+            .col-md-12.col-centered.post-title{style:"font-size:20px;"}
+              = post.title
+          .row
+            .col-md-12
+              %span Number of rates:
+              %span= post.rates.count
