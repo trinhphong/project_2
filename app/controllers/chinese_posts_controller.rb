@@ -47,7 +47,7 @@ class ChinesePostsController < ApplicationController
   end
 
   def split_phrases post
-    @phrases = post.split("。")
+    @phrases = post.split(/。|！|？|;/)
   end
 
   def create_phrases phrases
