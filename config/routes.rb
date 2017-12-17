@@ -10,10 +10,15 @@ Rails.application.routes.draw do
   resources :chinese_posts
 
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: "users/registrations"
   }
 
-  resources :users
+  resources :users do
+    post :generate_new_password_email
+  end
+
+  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
   
   get '/admins/sign_up', to: redirect('/admins/sign_in')
 

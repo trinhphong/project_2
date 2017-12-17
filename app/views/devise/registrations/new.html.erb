@@ -9,14 +9,17 @@
           <div class="field">
             <%= f.email_field :email, autofocus: true, class: "form-control input-lg", placeholder: "Email Address" %>
           </div>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br />
-          <div class="field">
-            <%= f.password_field :password, autocomplete: "off", class: "form-control input-lg", placeholder: "Password" %>
-          </div>
-          <div class="field">
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control input-lg", placeholder: "Confirm Password" %>
+          <div class="hidden">
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+            <% password = Devise.friendly_token.first(6) %>
+            <div class="field">
+              <%= f.password_field :password, autocomplete: "off", class: "form-control input-lg", placeholder: "Password", value: password %>
+            </div>
+            <div class="field">
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control input-lg", placeholder: "Confirm Password", value: password %>
+            </div>
           </div>
           <hr class="colorgraph">
           <div class="col-xs-6 col-sm-6 col-md-6">
