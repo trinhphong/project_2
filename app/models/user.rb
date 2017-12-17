@@ -9,3 +9,5 @@ class User < ApplicationRecord
 
   has_many :chinese_posts
 end
+
+#Test
