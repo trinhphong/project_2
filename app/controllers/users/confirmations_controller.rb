@@ -12,7 +12,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # GET /resource/confirmation?confirmation_token=abcdef
   def show
     super
-    byebug
     user = User.find(resource.id)
     user.send_reset_password_instructions
   end
