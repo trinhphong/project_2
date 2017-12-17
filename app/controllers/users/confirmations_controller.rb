@@ -10,9 +10,12 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # end
 
   # GET /resource/confirmation?confirmation_token=abcdef
-  # def show
-  #   super
-  # end
+  def show
+    super
+    byebug
+    user = User.find(resource.id)
+    user.send_reset_password_instructions
+  end
 
   # protected
 

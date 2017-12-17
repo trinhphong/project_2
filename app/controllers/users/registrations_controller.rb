@@ -8,11 +8,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super
-    user = User.find(resource.id)
-    user.send_reset_password_instructions
-  end
+  # def create
+  #   super
+  # end
 
   # GET /resource/edit
   # def edit
