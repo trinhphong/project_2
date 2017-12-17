@@ -37,7 +37,7 @@
                     - if current_user.admin?
                       = link_to 'Destroy', vn, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' }
                     - if phrase.vietnamese_phrases.count <= 10
-                      = link_to 'Update', '#', 
+                      = link_to 'Edit', '#', 
                         class: 'btn btn-success update-btn', 
                         id: 'create-vietnamese-phrase', 
                         "data-toggle" => "modal", 
