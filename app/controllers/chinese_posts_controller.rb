@@ -88,6 +88,45 @@ class ChinesePostsController < ApplicationController
     end
   end
 
+  def download
+    post = ChinesePost.find(params[:id])
+    zh_phrases = post.chinese_phrases
+    data = ""
+    count = 1
+    zh_phrases.each do |zh|
+      data << count.to_s << " - " << zh.content << "\n"
+      vns = zh.vietnamese_phrases
+      vn_count = 1
+      vns.each do |vn|
+        data << "\t #{count.to_s}.#{vn_count.to_s} - " << vn.content << "\n"
+        vn_count = vn_count + 1
+      end
+      count = count + 1
+    end
+    send_data "#{data}", :filename => "#{post.id}.txt"
+  end
+
+  def download_advance
+    post = ChinesePost.find(params[:id])
+    zh_phrases = post.chinese_phrases
+    data = ""
+    count = 1
+    zh_phrases.each do |zh|
+      data << count.to_s << " - " << zh.content << "\n"
+      vns = zh.vietnamese_phrases.where('score >= ?', 3.5)
+                                 .order(score: :asc)
+      vn_count = 1
+      vns.each do |vn|
+        if vn.rates.count > 2
+          data << "\t #{count.to_s}.#{vn_count.to_s} - " << vn.content << "\n"
+          vn_count = vn_count + 1
+        end
+      end
+      count = count + 1
+    end
+    send_data "#{data}", :filename => "#{post.id}.txt"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_chinese_post

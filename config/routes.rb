@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     end
   end
   resources :chinese_phrases
-  resources :chinese_posts
+  resources :chinese_posts do
+    get 'download', 'download_advance', on: :member
+  end
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',

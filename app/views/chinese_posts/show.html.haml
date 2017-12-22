@@ -1,8 +1,10 @@
 - flash.each do |key, value|
   - if value == 'Duplicate content!!!'
     %h2= content_tag :div, value, class: "flash #{key}"
-
 .container-fluid
+  - if current_user.admin?
+    = link_to "Download all!", download_chinese_post_path(@chinese_post), class: 'btn btn-default pull-right'
+    = link_to "Download advance!", download_advance_chinese_post_path(@chinese_post), class: 'btn btn-danger pull-right', style: "color: white"
   .row
     .col-md-12
       .row
