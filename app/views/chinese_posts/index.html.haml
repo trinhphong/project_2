@@ -9,7 +9,7 @@
         %th Title
         %th Content
         %th Source
-        %th
+        %th Created at
         %th
         %th
 
@@ -19,6 +19,7 @@
           %td= chinese_post.title
           %td= chinese_post.content
           %td= chinese_post.source
+          %td= chinese_post.created_at.strftime("%d/%m/%Y")
           %td= link_to 'Show', chinese_post
           %td= link_to 'Destroy', chinese_post, method: :delete, data: { confirm: 'Are you sure?' }
   %br

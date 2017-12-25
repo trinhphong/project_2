@@ -17,3 +17,5 @@
               .col-md-12
                 %span Number of rates:
                 %span= post.rates.count
+                %span ~
+                %span.text-center= post.created_at.strftime("%d/%m/%Y")

@@ -10,6 +10,7 @@
       .row
         .title-post.text-center
           %h3= @chinese_post.title
+          %h5= @chinese_post.created_at.strftime("%d/%m/%Y")
       .row{style: "margin: 0 20px;"}
         .content-post
           %table.table-bordered.table-hover{style:"width: 100%"}
