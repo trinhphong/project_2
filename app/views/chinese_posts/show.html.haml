@@ -15,21 +15,22 @@
         .content-post
           %table.table-bordered.table-hover{style:"width: 100%"}
             - @chinese_phrases.each do |phrase|
+              - vnps = phrase.vietnamese_phrases.sort_by(&:order_priority).reverse
               %tr.row-phrase{"data-zh" => phrase.id}
                 = hidden_field_tag :id_zh, phrase.id
-                - @first = phrase.vietnamese_phrases.sort_by(&:order_priority).reverse.first
+                - @first = vnps.first
                 %td.zh-phrase{id: "zh_content_#{phrase.id}", style:"width: 40%"}= phrase.content
                 %td.vn-phrase{style:"width: 50%"}= @first.content
                 %td.score-cell{style: "width: 5%", class: "score-#{@first.id}"}= @first.score
                 %td.update-cell{style: "width: 5%"}
-              - phrase.vietnamese_phrases.sort_by(&:order_priority).reverse.each do |vn|
+              - vnps.each do |vn|
                 %tr.hidden{class: "list-#{phrase.id} hello", style: "background-color: whitesmoke"}
                   %td.pull-right= "Created by #{vn.user.email}"
                   %td{id: "vn_content_#{vn.id}"}= vn.content
                   %td.score-cell
                     %span{class: "score-#{vn.id}"}= vn.score
                     %span /
-                    %span{class: "count-#{vn.id}"}= vn.rates.count
+                    %span{class: "count-#{vn.id}"}= vn.rates.length
                   %td.update-cell
                     - unless ChinesePostsHelper.check_rated?(current_user.id, vn.id)
                       = select_tag :score, options_for_select([1,2,3,4,5]),
@@ -39,7 +40,7 @@
                             "data-url" => calculate_score_vietnamese_phrase_path(vn.id)
                     - if current_user.admin?
                       = link_to 'Destroy', vn, method: :delete, class: "btn btn-danger" , data: { confirm: 'Are you sure?' }
-                    - if phrase.vietnamese_phrases.count <= 10
+                    - if phrase.vietnamese_phrases.length <= 10
                       = link_to 'Edit', '#', 
                         class: 'btn btn-success update-btn', 
                         id: 'create-vietnamese-phrase', 

@@ -1,19 +1,25 @@
-%h1.text-center Listing Users
+%h1.text-center Manage Users
+%br
 .container
-  %table.table-bordered.table-hover{style: 'width: 100%'}
+  %table.table-bordered.table-hover.table-admin{style: 'width: 100%'}
     %thead
       %tr
-        %th Email
-        %th number of rates 
+        %th{style: 'width: 40%'} Email
+        %th{style: 'width: 20%'} Number of rates
+        %th{style: 'width: 20%'} Number of phrases
+        %th{style: 'width: 20%'} Send Reset Password Email
+        %th
 
     %tbody
       - @users.each do |user|
         %tr
           %td= user.email
-          %td= user.rates.count
+          %td= user.rates.length
+          %td= user.vietnamese_phrases.length
           %td
             = form_tag(user_generate_new_password_email_path(user)) do
-              = submit_tag 'Send Reset Password Email', class: 'button', :confirm => 'Are you sure you want to email reset password instructions?'
-          - if !user.admin?
-            %td= link_to "Destroy", admin_destroy_user_path(user), method: :delete, data: { confirm: "You sure?" }
-
+              = submit_tag 'Send', class: 'btn btn-warning', :confirm => 'Are you sure you want to email reset password instructions?'
+          - unless user.admin?
+            %td= link_to "Destroy", admin_destroy_user_path(user), method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger'
+          - else
+            %td

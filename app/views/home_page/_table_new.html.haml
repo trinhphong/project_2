@@ -1,21 +1,23 @@
 .container-fluid
   .row.text-center
-    = will_paginate posts, renderer: BootstrapPagination::Rails
+    = will_paginate posts, renderer: BootstrapPagination::Rails, class: "posts-pagination-home"
   - posts.each_slice(4) do |row|
     .row
       - row.each do |post|
         %a{ href: chinese_post_path(post.id) }
-          .col-md-3{class: "click-post",id: "click_post_#{post.id}", style:"margin-bottom: 40px"}
-            .row
+          .col-md-3{class: "click-post", id: "click_post_#{post.id}"}
+            .row.text-center
               .col-md-12
                 .image-new
                   = image_tag post.image.url(:large), alt: "image post"
-            .row
-              .col-md-12.col-centered.post-title{style:"font-size:20px;"}
+            .row.text-center
+              .col-md-12.col-centered.post-title
                 = post.title
-            .row
+            %hr.hr-post
+            .row.text-center
               .col-md-12
                 %span Number of rates:
-                %span= post.rates.count
-                %span ~
+                %span= post.rates.length
+                %span.span-white-space -
+                %span Created at:
                 %span.text-center= post.created_at.strftime("%d/%m/%Y")

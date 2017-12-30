@@ -7,6 +7,7 @@ class ChinesePostsController < ApplicationController
 
   def index
     @chinese_posts = ChinesePost.all
+                                .includes(:chinese_phrases, :vietnamese_phrases, :user)
                                 .paginate(page: params[:page], per_page: 8)
                                 .order(created_at: :desc)
     authorize @chinese_posts
@@ -16,6 +17,9 @@ class ChinesePostsController < ApplicationController
   # GET /chinese_posts/1.json
   def show
     @chinese_phrases = @chinese_post.chinese_phrases
+                                    .includes(:vietnamese_phrases)
+                                    .includes(vietnamese_phrases: :user)
+                                    .includes(vietnamese_phrases: :rates)
     authorize @chinese_post
     @vietnamese_phrase = VietnamesePhrase.new()
   end
@@ -93,6 +97,7 @@ class ChinesePostsController < ApplicationController
   def download
     post = ChinesePost.find(params[:id])
     zh_phrases = post.chinese_phrases
+                     .includes(:vietnamese_phrases)
     data = ""
     count = 1
     zh_phrases.each do |zh|
@@ -105,12 +110,13 @@ class ChinesePostsController < ApplicationController
       end
       count = count + 1
     end
-    send_data "#{data}", :filename => "#{post.id}.txt"
+    send_data "#{data}", :filename => "all-#{post.id}.txt"
   end
 
   def download_advance
     post = ChinesePost.find(params[:id])
     zh_phrases = post.chinese_phrases
+                     .includes(:vietnamese_phrases)
     data = ""
     count = 1
     zh_phrases.each do |zh|
@@ -126,7 +132,7 @@ class ChinesePostsController < ApplicationController
       end
       count = count + 1
     end
-    send_data "#{data}", :filename => "#{post.id}.txt"
+    send_data "#{data}", :filename => "advance-#{post.id}.txt"
   end
 
   private

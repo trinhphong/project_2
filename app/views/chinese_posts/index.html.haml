@@ -1,12 +1,12 @@
 %h1.text-center Manage Chineses Post
-
+%br
 .container
   .row
     .col-md-5
       = link_to 'Create Post', new_chinese_post_path, class: "btn btn-success btn-create-post"
     .col-md-4
       = will_paginate @chinese_posts, renderer: BootstrapPagination::Rails, class: "posts-pagination"
-  %table.table-bordered.table-hover.table-admin-posts
+  %table.table-bordered.table-hover.table-admin
     %thead
       %tr
         %th{style: "width: 30%"} Title
