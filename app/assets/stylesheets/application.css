@@ -27,3 +27,11 @@
   padding: 10px;
   margin: 25px 15px 25px 0;
 }
+
+.btn {
+  color: white !important;
+}
+
+.btn-default {
+  color: black !important;
+}

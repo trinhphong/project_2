@@ -7,6 +7,8 @@ class ChinesePostsController < ApplicationController
 
   def index
     @chinese_posts = ChinesePost.all
+                                .paginate(page: params[:page], per_page: 8)
+                                .order(created_at: :desc)
     authorize @chinese_posts
   end
 

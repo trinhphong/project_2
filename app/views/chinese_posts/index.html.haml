@@ -1,15 +1,22 @@
-%h1.text-center Listing Chineses Post
+%h1.text-center Manage Chineses Post
 
 .container
   .row
-    = link_to 'New Chinese post', new_chinese_post_path, class: "btn btn-success"
-  %table.table-bordered.table-hover
+    .col-md-5
+      = link_to 'Create Post', new_chinese_post_path, class: "btn btn-success btn-create-post"
+    .col-md-4
+      = will_paginate @chinese_posts, renderer: BootstrapPagination::Rails, class: "posts-pagination"
+  %table.table-bordered.table-hover.table-admin-posts
     %thead
       %tr
-        %th Title
-        %th Content
+        %th{style: "width: 30%"} Title
+        %th Zh
+        %th Vn
         %th Source
+        %th Created by
         %th Created at
+        %th
+        %th
         %th
         %th
 
@@ -17,9 +24,13 @@
       - @chinese_posts.each do |chinese_post|
         %tr
           %td= chinese_post.title
-          %td= chinese_post.content
+          %td= chinese_post.chinese_phrases.length
+          %td= chinese_post.vietnamese_phrases.length
           %td= link_to 'Link', chinese_post.source, target: :_blank
+          %td= chinese_post.user.email
           %td= chinese_post.created_at.strftime("%d/%m/%Y")
-          %td= link_to 'Show', chinese_post
-          %td= link_to 'Destroy', chinese_post, method: :delete, data: { confirm: 'Are you sure?' }
+          %td= link_to 'Show', chinese_post, class: 'btn btn-primary'
+          %td= link_to 'Destroy', chinese_post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+          %td= link_to "Download all", download_chinese_post_path(chinese_post), class: 'btn btn-default'
+          %td= link_to "Download advance", download_advance_chinese_post_path(chinese_post), class: 'btn btn-warning'
   %br

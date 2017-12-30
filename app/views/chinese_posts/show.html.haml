@@ -24,7 +24,7 @@
                 %td.update-cell{style: "width: 5%"}
               - phrase.vietnamese_phrases.sort_by(&:order_priority).reverse.each do |vn|
                 %tr.hidden{class: "list-#{phrase.id} hello", style: "background-color: whitesmoke"}
-                  %td.pull-right= "Create by #{vn.user.email}"
+                  %td.pull-right= "Created by #{vn.user.email}"
                   %td{id: "vn_content_#{vn.id}"}= vn.content
                   %td.score-cell
                     %span{class: "score-#{vn.id}"}= vn.score
