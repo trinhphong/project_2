@@ -53,7 +53,7 @@ class VietnamesePhrasesController < ApplicationController
   def destroy
     @vietnamese_phrase.destroy
     respond_to do |format|
-      format.html { redirect_to vietnamese_phrases_url, notice: 'Vietnamese phrase was successfully destroyed.' }
+      format.html { redirect_to chinese_post_path(@vietnamese_phrase.chinese_post), notice: 'Vietnamese phrase was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
