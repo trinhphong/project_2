@@ -8,21 +8,22 @@
 
   .field
     = f.label :title
-    = f.text_field :title, required: true
+    = f.text_field :title, required: true, class: "form-control"
   .field
     = f.label :content
-    = f.text_area :content, class: "form-control", rows: '4', required: true
+    = f.text_area :content, class: "form-control", rows: '6', required: true
   .field
     = f.label :image
-    = f.file_field :image
-    %img{id: "img-field", alt: "post image", style:"height:200px;width:200px;", src:"#"}
+    = f.file_field :image, class: "form-control"
+    .create-img{style:"height:100px;width:150px; border: groove 3px;"}
+      %img{id: "img-field", alt: "post image", style:"height:100px;width:150px;", src:"#"}
   .field
     = f.label :source
-    = f.text_field :source
+    = f.text_field :source, class: "form-control"
   .field
     = f.hidden_field :admin_id, value: current_user.id
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'btn btn-success form-control'
 
 :javascript
   function readURL(input) {
