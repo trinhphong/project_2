@@ -20,6 +20,7 @@ class ChinesePostsController < ApplicationController
                                     .includes(:vietnamese_phrases)
                                     .includes(vietnamese_phrases: :user)
                                     .includes(vietnamese_phrases: :rates)
+                                    .order(id: :asc)
     authorize @chinese_post
     @vietnamese_phrase = VietnamesePhrase.new()
   end
