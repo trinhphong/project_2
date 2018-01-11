@@ -5,9 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_many :rates
-  has_many :vietnamese_phrases, through: :rates
+  has_many :vietnamese_phrases
 
   has_many :chinese_posts
 end
-
-#Test

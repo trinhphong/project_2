@@ -11,7 +11,6 @@ class VietnamesePhrase < ApplicationRecord
     validates :chinese_phrase_id, presence: true
     validates :user, presence: true
 
-
     def order_priority
         rates.count * score
     end
